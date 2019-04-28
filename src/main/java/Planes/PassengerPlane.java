@@ -1,20 +1,45 @@
 package Planes;
 
+import exception.PlaneBuilderInputDataException;
+
 import java.util.Objects;
 
 public class PassengerPlane extends Plane{
 
-    //=================FIELDS=================
     private int passengersCapacity;
 
-    //=================CONSTRUCTORS=================
-    public PassengerPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, int passengersCapacity) {
-        super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
-        this.passengersCapacity = passengersCapacity;
+    protected PassengerPlane(PassengerPlaneBuilder builder) {
+        super(builder);
+        this.passengersCapacity = builder.passengersCapacity;
     }
 
+    public static class PassengerPlaneBuilder
+            extends PlaneBuilder<PassengerPlane, PassengerPlaneBuilder>{
+        private int passengersCapacity;
 
-    //=================METHODS=================
+        public PassengerPlaneBuilder passengerCapacity(int passengersCapacity){
+            this.passengersCapacity = passengersCapacity;
+            return this;
+        }
+
+        @Override
+        public PassengerPlane build() throws PlaneBuilderInputDataException {
+            buildPlaneDataIntegrityCheck();
+            return new PassengerPlane(this);
+        }
+
+        //more sophisticated data integrity check/validation might be needed
+        //the method below only checks if the builder object fields have been initialized before build execution
+        @Override
+        protected void buildPlaneDataIntegrityCheck() throws PlaneBuilderInputDataException {
+            super.buildPlaneDataIntegrityCheck();
+            if(passengersCapacity == 0){
+                throw new PlaneBuilderInputDataException(
+                        "data integrity violation: passengers capacity has not been initialized for passenger plane");
+            }
+        }
+    }
+
     public int getPassengersCapacity() {
         return passengersCapacity;
     }
@@ -25,13 +50,6 @@ public class PassengerPlane extends Plane{
                 ", passengersCapacity=" + passengersCapacity +
                 '}');
     }
-
-//    @Override
-//    public String toString() {
-//        return super.toString().replace("}",
-//                ", passengersCapacity=" + passengersCapacity +
-//                        '}');
-//    }
 
     @Override
     public boolean equals(Object o) {
