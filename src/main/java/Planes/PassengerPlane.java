@@ -1,5 +1,6 @@
 package Planes;
 
+import exception.PassengerPlaneBuilderInputDataException;
 import exception.PlaneBuilderInputDataException;
 
 import java.util.Objects;
@@ -34,7 +35,7 @@ public class PassengerPlane extends Plane{
         protected void buildPlaneDataIntegrityCheck() throws PlaneBuilderInputDataException {
             super.buildPlaneDataIntegrityCheck();
             if(passengersCapacity == 0){
-                throw new PlaneBuilderInputDataException(
+                throw new PassengerPlaneBuilderInputDataException(
                         "data integrity violation: passengers capacity has not been initialized for passenger plane");
             }
         }
