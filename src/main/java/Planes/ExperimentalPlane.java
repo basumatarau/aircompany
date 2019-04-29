@@ -49,7 +49,7 @@ public class ExperimentalPlane extends Plane{
         }
     }
 
-    public DisclosureLevel getClassificationLevel(){
+    public DisclosureLevel getDisclosureLevel(){
         return classificationLevel;
     }
 

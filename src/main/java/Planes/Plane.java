@@ -18,7 +18,8 @@ abstract public class Plane {
     }
 
     @SuppressWarnings("unchecked")
-    public abstract static class PlaneBuilder <T extends Plane, B extends PlaneBuilder<T, B>>{
+    public abstract static class PlaneBuilder
+            <T extends Plane, B extends PlaneBuilder<T, B>>{
         private String model;
         private int maxSpeed;
         private int maxFlightDistance;
@@ -49,12 +50,14 @@ abstract public class Plane {
 
         //simple builder input data check before build method execution
         // - some advanced input data validation might be needed
-        protected void buildPlaneDataIntegrityCheck() throws PlaneBuilderInputDataException {
+        protected void buildPlaneDataIntegrityCheck()
+                throws PlaneBuilderInputDataException {
             if(this.model == null ||
                     this.maxSpeed == 0 ||
                     this.maxFlightDistance == 0 ||
                     this.maxLoadCapacity == 0){
-                throw new PlaneBuilderInputDataException("plane builder input data integrity violation");
+                throw new PlaneBuilderInputDataException(
+                        "plane builder input data integrity violation");
             }
         }
     }
