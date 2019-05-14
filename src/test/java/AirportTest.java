@@ -15,6 +15,7 @@ import java.util.List;
 
 public class AirportTest {
     private static List<Plane> planes;
+    private static PassengerPlane planeWithMaxPassengerCapacity;
 
     @BeforeClass
     public void init() {
@@ -133,15 +134,7 @@ public class AirportTest {
                             .maxFlightDistance(307)
                             .maxLoadCapacity(500).build()
             );
-        } catch (PlaneBuilderInputDataException e) {
-            throw new ExceptionInInitializerError(e);
-        }
-    }
 
-    private static PassengerPlane planeWithMaxPassengerCapacity;
-
-    static {
-        try {
             planeWithMaxPassengerCapacity = new PassengerPlane.PassengerPlaneBuilder()
                     .passengerCapacity(242)
                     .model("Boeing-747")
@@ -149,8 +142,9 @@ public class AirportTest {
                     .maxFlightDistance(16100)
                     .maxLoadCapacity(70500)
                     .build();
+
         } catch (PlaneBuilderInputDataException e) {
-            e.printStackTrace();
+            throw new ExceptionInInitializerError(e);
         }
     }
 
