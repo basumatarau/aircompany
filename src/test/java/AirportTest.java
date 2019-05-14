@@ -4,6 +4,7 @@ import models.DisclosureLevel;
 import models.ExperimentalPlaneType;
 import models.MilitaryPlaneType;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import Planes.MilitaryPlane;
 import Planes.PassengerPlane;
@@ -15,7 +16,8 @@ import java.util.List;
 public class AirportTest {
     private static List<Plane> planes;
 
-    static {
+    @BeforeClass
+    public void init() {
         try {
             planes = Arrays.asList(
                     new PassengerPlane.PassengerPlaneBuilder()
@@ -155,7 +157,8 @@ public class AirportTest {
     @Test
     public void testGetTransportMilitaryPlanes() {
         Assert.assertFalse(
-                new Airport(planes).getTransportMilitaryPlanes()
+                new Airport(planes)
+                        .getTransportMilitaryPlanes()
                         .stream()
                         .anyMatch(tmp -> !tmp.getType().equals(MilitaryPlaneType.TRANSPORTER))
         );
@@ -175,8 +178,8 @@ public class AirportTest {
 
         List<? extends Plane> sortedPlanes = airport.getPlanes();
         for (int i = 1; i < sortedPlanes.size(); i++) {
-            Assert.assertTrue(sortedPlanes.get(i - 1).getMinimumLoadCapacity()
-                    > sortedPlanes.get(i).getMinimumLoadCapacity()
+            Assert.assertTrue(sortedPlanes.get(i - 1).getMaximumLoadCapacity()
+                    <= sortedPlanes.get(i).getMaximumLoadCapacity()
             );
         }
     }
